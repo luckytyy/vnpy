@@ -9,17 +9,18 @@ shift 2
 
 $python -m pip install --upgrade pip wheel --index $pypi_index
 
-# Get and build ta-lib
-function install-ta-lib()
-{
+# 修复函数名：使用下划线替代连字符
+function install_ta_lib() {
     export HOMEBREW_NO_AUTO_UPDATE=true
     brew install ta-lib
 }
-function ta-lib-exists()
-{
-    ta-lib-config --libs > /dev/null
+
+function ta_lib_exists() {
+    ta-lib-config --libs > /dev/null 2>&1
 }
-ta-lib-exists || install-ta-lib
+
+# 调用修复后的函数名
+ta_lib_exists || install_ta_lib
 
 # install ta-lib
 $python -m pip install numpy==1.23.1 --index $pypi_index
